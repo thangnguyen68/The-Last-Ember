@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#172036" />
+  <title>The Last Flame</title>
+  <link rel="icon" href="assets/branding/app_icon.png" />
+  <style>
+    @font-face { font-family: 'PatrickHand'; src: url('fonts/PatrickHand-Regular.ttf') format('truetype'); font-display: block; }
+    @font-face { font-family: 'BeVietnam'; src: url('fonts/BeVietnamPro-Regular.ttf') format('truetype'); font-weight: 400; font-display: block; }
+    @font-face { font-family: 'BeVietnam'; src: url('fonts/BeVietnamPro-SemiBold.ttf') format('truetype'); font-weight: 600; font-display: block; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #0f1527; overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; }
+    #game { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #game canvas { display: block; }
+    /* Ép trình duyệt tải font sớm */
+    .font-preload { position: absolute; left: -9999px; visibility: hidden; }
+  </style>
+  <!-- Facebook Instant Games SDK. Ngoài Facebook, game tự chạy ở chế độ web thường. -->
+  <script src="https://connect.facebook.net/en_US/fbinstant.7.1.js"></script>
+</head>
+<body>
+  <div class="font-preload" style="font-family:PatrickHand">Ngọn Lửa</div>
+  <div class="font-preload" style="font-family:BeVietnam">Ngọn Lửa</div>
+  <div class="font-preload" style="font-family:BeVietnam;font-weight:600">Ngọn Lửa</div>
+  <div id="game"></div>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

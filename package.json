@@ -1,0 +1,21 @@
+{
+  "name": "ngon-lua-cuoi-cung",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "zip": "node scripts/zip.mjs",
+    "package:fb": "npm run build && npm run zip"
+  },
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "archiver": "^8.0.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2"
+  }
+}

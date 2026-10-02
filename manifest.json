@@ -1,0 +1,1372 @@
+{
+  "game": "Ngọn Lửa Cuối Cùng",
+  "version": 1,
+  "png_scale": 2,
+  "notes": "size = kích thước logic (px @1x). PNG được xuất ở @2x. anchor = điểm neo chuẩn hóa (0–1), (0.5,1) là giữa đáy.",
+  "palette": {
+    "ink": "#172036",
+    "ember": "#F0A23B",
+    "ember_dark": "#D9592B",
+    "paper": "#ECE3CC",
+    "mist": "#5E6578",
+    "jade": "#6FA587",
+    "tile": "#212C47"
+  },
+  "fonts": {
+    "display": "fonts/PatrickHand-Regular.ttf",
+    "body": "fonts/BeVietnamPro-Regular.ttf",
+    "body_bold": "fonts/BeVietnamPro-SemiBold.ttf"
+  },
+  "assets": {
+    "lam_idle": {
+      "category": "characters",
+      "svg": "assets/characters/lam_idle.svg",
+      "png": "assets/characters/lam_idle.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5166666666666667,
+        0.9375
+      ],
+      "view": "side",
+      "description": "Lam đứng yên (nhìn ngang)"
+    },
+    "lam_run_01": {
+      "category": "characters",
+      "svg": "assets/characters/lam_run_01.svg",
+      "png": "assets/characters/lam_run_01.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5166666666666667,
+        0.9375
+      ],
+      "view": "side",
+      "description": "Khung chạy (nhìn ngang)"
+    },
+    "lam_run_02": {
+      "category": "characters",
+      "svg": "assets/characters/lam_run_02.svg",
+      "png": "assets/characters/lam_run_02.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5166666666666667,
+        0.9375
+      ],
+      "view": "side",
+      "description": "Khung chạy (nhìn ngang)"
+    },
+    "lam_run_03": {
+      "category": "characters",
+      "svg": "assets/characters/lam_run_03.svg",
+      "png": "assets/characters/lam_run_03.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5166666666666667,
+        0.9375
+      ],
+      "view": "side",
+      "description": "Khung chạy (nhìn ngang)"
+    },
+    "lam_run_04": {
+      "category": "characters",
+      "svg": "assets/characters/lam_run_04.svg",
+      "png": "assets/characters/lam_run_04.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5166666666666667,
+        0.9375
+      ],
+      "view": "side",
+      "description": "Khung chạy (nhìn ngang)"
+    },
+    "lam_jump": {
+      "category": "characters",
+      "svg": "assets/characters/lam_jump.svg",
+      "png": "assets/characters/lam_jump.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5166666666666667,
+        0.9375
+      ],
+      "view": "side",
+      "description": "Nhảy"
+    },
+    "lam_slide": {
+      "category": "characters",
+      "svg": "assets/characters/lam_slide.svg",
+      "png": "assets/characters/lam_slide.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5166666666666667,
+        0.9375
+      ],
+      "view": "side",
+      "description": "Trượt"
+    },
+    "lam_hurt": {
+      "category": "characters",
+      "svg": "assets/characters/lam_hurt.svg",
+      "png": "assets/characters/lam_hurt.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5166666666666667,
+        0.9375
+      ],
+      "view": "side",
+      "description": "Vấp ngã"
+    },
+    "lam_gameover": {
+      "category": "characters",
+      "svg": "assets/characters/lam_gameover.svg",
+      "png": "assets/characters/lam_gameover.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5166666666666667,
+        0.9375
+      ],
+      "view": "side",
+      "description": "Đèn tắt"
+    },
+    "lam_back_01": {
+      "category": "characters",
+      "svg": "assets/characters/lam_back_01.svg",
+      "png": "assets/characters/lam_back_01.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.9375
+      ],
+      "view": "back",
+      "description": "Chạy nhìn từ sau, khung 1 (dùng cho lối chơi 3 làn)"
+    },
+    "lam_back_02": {
+      "category": "characters",
+      "svg": "assets/characters/lam_back_02.svg",
+      "png": "assets/characters/lam_back_02.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.9375
+      ],
+      "view": "back",
+      "description": "Chạy nhìn từ sau, khung 2"
+    },
+    "ba_awake": {
+      "category": "characters",
+      "svg": "assets/characters/ba_awake.svg",
+      "png": "assets/characters/ba_awake.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.9375
+      ],
+      "description": "Bà – tỉnh lại (kết thúc B)"
+    },
+    "ba_stone": {
+      "category": "characters",
+      "svg": "assets/characters/ba_stone.svg",
+      "png": "assets/characters/ba_stone.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.9375
+      ],
+      "description": "Bà – hóa đá"
+    },
+    "villager_stone": {
+      "category": "characters",
+      "svg": "assets/characters/villager_stone.svg",
+      "png": "assets/characters/villager_stone.png",
+      "size": [
+        120,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.9375
+      ],
+      "description": "Dân làng hóa đá, có thể giải cứu"
+    },
+    "lantern_lv3": {
+      "category": "lantern",
+      "svg": "assets/lantern/lantern_lv3.svg",
+      "png": "assets/lantern/lantern_lv3.png",
+      "size": [
+        160,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.1
+      ],
+      "flame_level": 3
+    },
+    "lantern_lv2": {
+      "category": "lantern",
+      "svg": "assets/lantern/lantern_lv2.svg",
+      "png": "assets/lantern/lantern_lv2.png",
+      "size": [
+        160,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.1
+      ],
+      "flame_level": 2
+    },
+    "lantern_lv1": {
+      "category": "lantern",
+      "svg": "assets/lantern/lantern_lv1.svg",
+      "png": "assets/lantern/lantern_lv1.png",
+      "size": [
+        160,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.1
+      ],
+      "flame_level": 1
+    },
+    "lantern_out": {
+      "category": "lantern",
+      "svg": "assets/lantern/lantern_out.svg",
+      "png": "assets/lantern/lantern_out.png",
+      "size": [
+        160,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.2
+      ],
+      "flame_level": 0
+    },
+    "ember": {
+      "category": "lantern",
+      "svg": "assets/lantern/ember.svg",
+      "png": "assets/lantern/ember.png",
+      "size": [
+        160,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ]
+    },
+    "lantern_up1": {
+      "category": "lantern",
+      "svg": "assets/lantern/lantern_up1.svg",
+      "png": "assets/lantern/lantern_up1.png",
+      "size": [
+        160,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.1
+      ],
+      "upgrade_tier": 1,
+      "name": "Đèn giấy dó"
+    },
+    "lantern_up2": {
+      "category": "lantern",
+      "svg": "assets/lantern/lantern_up2.svg",
+      "png": "assets/lantern/lantern_up2.png",
+      "size": [
+        160,
+        160
+      ],
+      "anchor": [
+        0.5,
+        0.15
+      ],
+      "upgrade_tier": 2,
+      "name": "Đèn cá chép"
+    },
+    "lantern_up3": {
+      "category": "lantern",
+      "svg": "assets/lantern/lantern_up3.svg",
+      "png": "assets/lantern/lantern_up3.png",
+      "size": [
+        160,
+        160
+      ],
+      "anchor": [
+        0.75,
+        0.1
+      ],
+      "upgrade_tier": 3,
+      "name": "Đèn ông sao"
+    },
+    "bongmo_far": {
+      "category": "enemy",
+      "svg": "assets/enemy/bongmo_far.svg",
+      "png": "assets/enemy/bongmo_far.png",
+      "size": [
+        200,
+        200
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "mist_stage": 1
+    },
+    "bongmo_near": {
+      "category": "enemy",
+      "svg": "assets/enemy/bongmo_near.svg",
+      "png": "assets/enemy/bongmo_near.png",
+      "size": [
+        200,
+        200
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "mist_stage": 2
+    },
+    "bongmo_boss": {
+      "category": "enemy",
+      "svg": "assets/enemy/bongmo_boss.svg",
+      "png": "assets/enemy/bongmo_boss.png",
+      "size": [
+        200,
+        200
+      ],
+      "anchor": [
+        0.5,
+        0.9
+      ],
+      "mist_stage": 3
+    },
+    "bongmo_tendril": {
+      "category": "enemy",
+      "svg": "assets/enemy/bongmo_tendril.svg",
+      "png": "assets/enemy/bongmo_tendril.png",
+      "size": [
+        200,
+        200
+      ],
+      "anchor": [
+        0.5,
+        0.93
+      ]
+    },
+    "mist_overlay": {
+      "category": "enemy",
+      "svg": "assets/enemy/mist_overlay.svg",
+      "png": "assets/enemy/mist_overlay.png",
+      "size": [
+        200,
+        200
+      ],
+      "anchor": [
+        0.5,
+        1
+      ],
+      "description": "Kéo giãn theo chiều ngang ở mép dưới màn hình; độ cao tăng theo mistLevel"
+    },
+    "shard_laugh": {
+      "category": "collectibles",
+      "svg": "assets/collectibles/shard_laugh.svg",
+      "png": "assets/collectibles/shard_laugh.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Mảnh ký ức – Tiếng cười",
+      "flame_gain": 15
+    },
+    "shard_meal": {
+      "category": "collectibles",
+      "svg": "assets/collectibles/shard_meal.svg",
+      "png": "assets/collectibles/shard_meal.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Mảnh ký ức – Bữa cơm",
+      "flame_gain": 15
+    },
+    "shard_promise": {
+      "category": "collectibles",
+      "svg": "assets/collectibles/shard_promise.svg",
+      "png": "assets/collectibles/shard_promise.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Mảnh ký ức – Lời hứa",
+      "flame_gain": 15
+    },
+    "shard_song": {
+      "category": "collectibles",
+      "svg": "assets/collectibles/shard_song.svg",
+      "png": "assets/collectibles/shard_song.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Mảnh ký ức – Lời ru",
+      "flame_gain": 15
+    },
+    "shard_letter": {
+      "category": "collectibles",
+      "svg": "assets/collectibles/shard_letter.svg",
+      "png": "assets/collectibles/shard_letter.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Mảnh ký ức – Lá thư",
+      "flame_gain": 15
+    },
+    "firefly": {
+      "category": "collectibles",
+      "svg": "assets/collectibles/firefly.svg",
+      "png": "assets/collectibles/firefly.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Đom đóm",
+      "currency": 1
+    },
+    "pu_magnet": {
+      "category": "powerups",
+      "svg": "assets/powerups/pu_magnet.svg",
+      "png": "assets/powerups/pu_magnet.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Nam châm ký ức"
+    },
+    "pu_shield": {
+      "category": "powerups",
+      "svg": "assets/powerups/pu_shield.svg",
+      "png": "assets/powerups/pu_shield.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Khiên tre"
+    },
+    "pu_boost": {
+      "category": "powerups",
+      "svg": "assets/powerups/pu_boost.svg",
+      "png": "assets/powerups/pu_boost.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Bùng lửa"
+    },
+    "pu_double": {
+      "category": "powerups",
+      "svg": "assets/powerups/pu_double.svg",
+      "png": "assets/powerups/pu_double.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Nhân đôi"
+    },
+    "pu_kite": {
+      "category": "powerups",
+      "svg": "assets/powerups/pu_kite.svg",
+      "png": "assets/powerups/pu_kite.png",
+      "size": [
+        120,
+        120
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "name": "Cánh diều"
+    },
+    "bg_village": {
+      "category": "backgrounds",
+      "svg": "assets/backgrounds/bg_village.svg",
+      "png": "assets/backgrounds/bg_village.png",
+      "size": [
+        640,
+        300
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "biome": "village"
+    },
+    "obs_thung": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_thung.svg",
+      "png": "assets/obstacles/obs_thung.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "village",
+      "name": "Thuyền thúng",
+      "action": "jump"
+    },
+    "obs_luoi": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_luoi.svg",
+      "png": "assets/obstacles/obs_luoi.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "village",
+      "name": "Lưới phơi",
+      "action": "slide"
+    },
+    "obs_chum": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_chum.svg",
+      "png": "assets/obstacles/obs_chum.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "village",
+      "name": "Chum nước",
+      "action": "lane"
+    },
+    "bg_bamboo": {
+      "category": "backgrounds",
+      "svg": "assets/backgrounds/bg_bamboo.svg",
+      "png": "assets/backgrounds/bg_bamboo.png",
+      "size": [
+        640,
+        300
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "biome": "bamboo"
+    },
+    "obs_tre_do": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_tre_do.svg",
+      "png": "assets/obstacles/obs_tre_do.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "bamboo",
+      "name": "Thân tre đổ",
+      "action": "jump"
+    },
+    "obs_gai": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_gai.svg",
+      "png": "assets/obstacles/obs_gai.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "bamboo",
+      "name": "Bụi gai",
+      "action": "lane"
+    },
+    "obs_tre_cao": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_tre_cao.svg",
+      "png": "assets/obstacles/obs_tre_cao.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "bamboo",
+      "name": "Tre chắn ngang",
+      "action": "slide"
+    },
+    "bg_terraces": {
+      "category": "backgrounds",
+      "svg": "assets/backgrounds/bg_terraces.svg",
+      "png": "assets/backgrounds/bg_terraces.png",
+      "size": [
+        640,
+        300
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "biome": "terraces"
+    },
+    "obs_bo_ruong": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_bo_ruong.svg",
+      "png": "assets/obstacles/obs_bo_ruong.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "terraces",
+      "name": "Bờ ruộng",
+      "action": "jump"
+    },
+    "obs_bun": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_bun.svg",
+      "png": "assets/obstacles/obs_bun.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "terraces",
+      "name": "Vũng bùn",
+      "action": "slow"
+    },
+    "obs_bu_nhin": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_bu_nhin.svg",
+      "png": "assets/obstacles/obs_bu_nhin.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "terraces",
+      "name": "Bù nhìn",
+      "action": "lane"
+    },
+    "bg_city": {
+      "category": "backgrounds",
+      "svg": "assets/backgrounds/bg_city.svg",
+      "png": "assets/backgrounds/bg_city.png",
+      "size": [
+        640,
+        300
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "biome": "city"
+    },
+    "obs_xe_may": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_xe_may.svg",
+      "png": "assets/obstacles/obs_xe_may.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "city",
+      "name": "Xe máy đổ",
+      "action": "lane"
+    },
+    "obs_day_dien": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_day_dien.svg",
+      "png": "assets/obstacles/obs_day_dien.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "city",
+      "name": "Dây điện rối",
+      "action": "slide"
+    },
+    "obs_bien": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_bien.svg",
+      "png": "assets/obstacles/obs_bien.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "city",
+      "name": "Biển hiệu rơi",
+      "action": "jump"
+    },
+    "bg_mountain": {
+      "category": "backgrounds",
+      "svg": "assets/backgrounds/bg_mountain.svg",
+      "png": "assets/backgrounds/bg_mountain.png",
+      "size": [
+        640,
+        300
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "biome": "mountain"
+    },
+    "obs_da_lan": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_da_lan.svg",
+      "png": "assets/obstacles/obs_da_lan.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "mountain",
+      "name": "Đá lăn",
+      "action": "lane"
+    },
+    "obs_khe": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_khe.svg",
+      "png": "assets/obstacles/obs_khe.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "mountain",
+      "name": "Khe nứt",
+      "action": "jump"
+    },
+    "obs_vach": {
+      "category": "obstacles",
+      "svg": "assets/obstacles/obs_vach.svg",
+      "png": "assets/obstacles/obs_vach.png",
+      "size": [
+        140,
+        140
+      ],
+      "anchor": [
+        0.5,
+        0.8571428571428571
+      ],
+      "biome": "mountain",
+      "name": "Vách đá sụt",
+      "action": "jump"
+    },
+    "bg_dawn": {
+      "category": "backgrounds",
+      "svg": "assets/backgrounds/bg_dawn.svg",
+      "png": "assets/backgrounds/bg_dawn.png",
+      "size": [
+        640,
+        300
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "biome": "ending"
+    },
+    "app_icon": {
+      "category": "branding",
+      "svg": "assets/branding/app_icon.svg",
+      "png": "assets/branding/app_icon.png",
+      "size": [
+        300,
+        300
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ]
+    },
+    "ic_play": {
+      "category": "ui",
+      "svg": "assets/ui/ic_play.svg",
+      "png": "assets/ui/ic_play.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_pause": {
+      "category": "ui",
+      "svg": "assets/ui/ic_pause.svg",
+      "png": "assets/ui/ic_pause.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_home": {
+      "category": "ui",
+      "svg": "assets/ui/ic_home.svg",
+      "png": "assets/ui/ic_home.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_settings": {
+      "category": "ui",
+      "svg": "assets/ui/ic_settings.svg",
+      "png": "assets/ui/ic_settings.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_sound": {
+      "category": "ui",
+      "svg": "assets/ui/ic_sound.svg",
+      "png": "assets/ui/ic_sound.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_mute": {
+      "category": "ui",
+      "svg": "assets/ui/ic_mute.svg",
+      "png": "assets/ui/ic_mute.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_music": {
+      "category": "ui",
+      "svg": "assets/ui/ic_music.svg",
+      "png": "assets/ui/ic_music.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_retry": {
+      "category": "ui",
+      "svg": "assets/ui/ic_retry.svg",
+      "png": "assets/ui/ic_retry.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_shop": {
+      "category": "ui",
+      "svg": "assets/ui/ic_shop.svg",
+      "png": "assets/ui/ic_shop.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_trophy": {
+      "category": "ui",
+      "svg": "assets/ui/ic_trophy.svg",
+      "png": "assets/ui/ic_trophy.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_rank": {
+      "category": "ui",
+      "svg": "assets/ui/ic_rank.svg",
+      "png": "assets/ui/ic_rank.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_close": {
+      "category": "ui",
+      "svg": "assets/ui/ic_close.svg",
+      "png": "assets/ui/ic_close.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_back": {
+      "category": "ui",
+      "svg": "assets/ui/ic_back.svg",
+      "png": "assets/ui/ic_back.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_lock": {
+      "category": "ui",
+      "svg": "assets/ui/ic_lock.svg",
+      "png": "assets/ui/ic_lock.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_star": {
+      "category": "ui",
+      "svg": "assets/ui/ic_star.svg",
+      "png": "assets/ui/ic_star.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_info": {
+      "category": "ui",
+      "svg": "assets/ui/ic_info.svg",
+      "png": "assets/ui/ic_info.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_share": {
+      "category": "ui",
+      "svg": "assets/ui/ic_share.svg",
+      "png": "assets/ui/ic_share.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_map": {
+      "category": "ui",
+      "svg": "assets/ui/ic_map.svg",
+      "png": "assets/ui/ic_map.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_gift": {
+      "category": "ui",
+      "svg": "assets/ui/ic_gift.svg",
+      "png": "assets/ui/ic_gift.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "ic_revive": {
+      "category": "ui",
+      "svg": "assets/ui/ic_revive.svg",
+      "png": "assets/ui/ic_revive.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "hud_flame": {
+      "category": "hud",
+      "svg": "assets/hud/hud_flame.svg",
+      "png": "assets/hud/hud_flame.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #F0A23B"
+    },
+    "hud_steps": {
+      "category": "hud",
+      "svg": "assets/hud/hud_steps.svg",
+      "png": "assets/hud/hud_steps.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #ECE3CC"
+    },
+    "hud_shard": {
+      "category": "hud",
+      "svg": "assets/hud/hud_shard.svg",
+      "png": "assets/hud/hud_shard.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #FFD98A"
+    },
+    "hud_firefly": {
+      "category": "hud",
+      "svg": "assets/hud/hud_firefly.svg",
+      "png": "assets/hud/hud_firefly.png",
+      "size": [
+        24,
+        24
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "tint": "stroke = currentColor trong SVG; PNG đã tô sẵn màu #E8F27A"
+    }
+  },
+  "biomes": [
+    {
+      "id": "village",
+      "order": 1,
+      "name": "Làng chài",
+      "background": "bg_village",
+      "length_m": 800,
+      "obstacles": [
+        "obs_thung",
+        "obs_luoi",
+        "obs_chum"
+      ]
+    },
+    {
+      "id": "bamboo",
+      "order": 2,
+      "name": "Rừng tre",
+      "background": "bg_bamboo",
+      "length_m": 800,
+      "obstacles": [
+        "obs_tre_do",
+        "obs_gai",
+        "obs_tre_cao"
+      ]
+    },
+    {
+      "id": "terraces",
+      "order": 3,
+      "name": "Ruộng bậc thang",
+      "background": "bg_terraces",
+      "length_m": 800,
+      "obstacles": [
+        "obs_bo_ruong",
+        "obs_bun",
+        "obs_bu_nhin"
+      ]
+    },
+    {
+      "id": "city",
+      "order": 4,
+      "name": "Thành phố bỏ hoang",
+      "background": "bg_city",
+      "length_m": 800,
+      "obstacles": [
+        "obs_xe_may",
+        "obs_day_dien",
+        "obs_bien"
+      ]
+    },
+    {
+      "id": "mountain",
+      "order": 5,
+      "name": "Núi Rạng",
+      "background": "bg_mountain",
+      "length_m": 800,
+      "obstacles": [
+        "obs_da_lan",
+        "obs_khe",
+        "obs_vach"
+      ]
+    }
+  ],
+  "animations": {
+    "lam_run": {
+      "frames": [
+        "lam_run_01",
+        "lam_run_02",
+        "lam_run_03",
+        "lam_run_04"
+      ],
+      "fps": 12,
+      "loop": true
+    },
+    "lam_run_back": {
+      "frames": [
+        "lam_back_01",
+        "lam_back_02"
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "lam_jump": {
+      "frames": [
+        "lam_jump"
+      ],
+      "fps": 1,
+      "loop": false
+    },
+    "lam_slide": {
+      "frames": [
+        "lam_slide"
+      ],
+      "fps": 1,
+      "loop": false
+    },
+    "lam_hurt": {
+      "frames": [
+        "lam_hurt"
+      ],
+      "fps": 1,
+      "loop": false
+    }
+  },
+  "lantern_states": {
+    "lv3": {
+      "min_flame": 66,
+      "asset": "lantern_lv3"
+    },
+    "lv2": {
+      "min_flame": 33,
+      "asset": "lantern_lv2"
+    },
+    "lv1": {
+      "min_flame": 1,
+      "asset": "lantern_lv1"
+    },
+    "out": {
+      "min_flame": 0,
+      "asset": "lantern_out"
+    }
+  },
+  "mist_stages": {
+    "0": null,
+    "1": "bongmo_far",
+    "2": "bongmo_near",
+    "3": "caught"
+  }
+}
