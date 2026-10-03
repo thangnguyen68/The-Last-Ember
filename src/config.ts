@@ -140,7 +140,25 @@ export const FB = {
   rewardedPlacementId: '', // ví dụ '1234567890_1234567890'
   interstitialPlacementId: '',
   interstitialEveryNDeaths: 3,
+  /** npm run dev ngoài Facebook: giả lập quảng cáo có thưởng để test */
+  mockAdsInDev: true,
 };
+
+/** Xem quảng cáo nhận đom đóm */
+export const AD_REWARD = {
+  fireflies: 50,
+  dailyLimit: 10,
+};
+
+/** Vật phẩm mua trước, tự dùng khi bắt đầu lượt chạy kế tiếp */
+export const SHOP_ITEMS: Record<string, { price: number }> = {
+  pu_shield: { price: 60 },
+  pu_magnet: { price: 80 },
+  pu_boost: { price: 80 },
+  pu_double: { price: 100 },
+  pu_kite: { price: 120 },
+};
+export const ITEM_MAX_STOCK = 9;
 
 export function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;

@@ -7,6 +7,16 @@ Dựa vào các file trong thư mục (`GDD.md`, `README.md`, `manifest.json`, `
 
 ## Trạng thái: ĐÃ HOÀN THÀNH bản v1.1 (chưa test trên Facebook thật)
 
+### v1.2 — Quảng cáo đổi vật phẩm + sửa mời bạn bè
+- Cửa hàng có 2 tab: Đèn lồng / Vật phẩm. Tab Vật phẩm: xem quảng cáo +50 đom đóm (tối đa 10 lần/ngày, `AD_REWARD`), 5 vật phẩm (`SHOP_ITEMS`) mua bằng đom đóm hoặc xem quảng cáo, tối đa 9 cái mỗi loại.
+- Vật phẩm đã mua tự dùng khi bắt đầu lượt chạy (`GameScene.useStartItems`, mỗi loại 1 cái). Save thêm `items`, `adDay`, `adCount`.
+- `Platform.showRewarded()` trả về `'ok' | 'cancelled' | 'unavailable'`, tải quảng cáo ngay khi cần (10 s) nếu chưa có sẵn; `rewardedAvailable`. Khi `npm run dev` ngoài FB thì giả lập quảng cáo (`FB.mockAdsInDev`).
+- Sửa luôn lỗi hồi sinh: trước đây chỉ kiểm tra true/false, nay phải xem hết quảng cáo mới được hồi sinh.
+- Mời bạn bè: `fbapp-config.json` thêm `custom_update_templates.invite` (trước đây thiếu nên `updateAsync` lỗi). Thử `inviteAsync` trước, dự phòng bằng `chooseAsync` + `updateAsync`. Text gửi dạng LocalizableContent. Huỷ (USER_INPUT) không báo lỗi; lỗi khác hiện kèm mã lỗi.
+- Ảnh chia sẻ/mời tạo riêng 1200×627 JPEG (`systems/shareImage.ts`, khoảng 67 KB) thay cho chụp toàn màn hình.
+- Bảng xếp hạng không tải được thì hiện "chưa sẵn sàng" thay vì đứng "Loading…".
+- Đã test: Cửa hàng (dev, quảng cáo giả lập); mời bạn bè trên FB giả lập theo cả 2 đường (inviteAsync / chooseAsync + updateAsync).
+
 ### v1.1.1 — Sửa lỗi kẹt 0% khi tải trên Facebook
 - Nguyên nhân chính: `initializeAsync` bị timeout 5 s → coi như chạy web → không gọi `setLoadingProgress`/`startGameAsync` → màn tải FB đứng 0%.
 - Sửa (`platform.ts`): nhận diện host Facebook (`*.fbsbx.com`, `facebook.com`, hoặc iframe không phải localhost) → chờ tới 30 s; ngoài FB chỉ chờ 3 s. Tiến trình tải không bao giờ tụt ngược.

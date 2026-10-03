@@ -7,15 +7,9 @@ import { Save } from '../systems/save';
 import { BaseScene, Button, iconButton, panel, text, toast } from '../ui/ui';
 import type { GameScene, RunStats } from './GameScene';
 import { t } from '../i18n';
+import { makeShareImage } from '../systems/shareImage';
 
 let deaths = 0;
-
-/** Chụp màn hình hiện tại thành data URL để chia sẻ. */
-export function snapshot(scene: Phaser.Scene): Promise<string> {
-  return new Promise((resolve) => {
-    scene.game.renderer.snapshot((img) => resolve((img as HTMLImageElement).src), 'image/jpeg', 0.8);
-  });
-}
 
 export class GameOverScene extends BaseScene {
   constructor() {
@@ -54,12 +48,14 @@ export class GameOverScene extends BaseScene {
 
     // Thắp lại
     const enough = Save.data.fireflies >= REVIVE_COST;
-    const useAd = !enough && Platform.rewardedReady;
+    const useAd = !enough && Platform.rewardedAvailable;
     const reviveLabel = useAd ? t('over.reviveAd') : t('over.revive', { n: REVIVE_COST });
     const revive = new Button(this, W / 2, 646, { w: 342, h: 60, label: reviveLabel, size: 26 }, async () => {
       if (useAd) {
-        const ok = await Platform.showRewarded();
-        if (!ok) { toast(this, t('over.adIncomplete'), 600); return; }
+        Audio.suspend();
+        const res = await Platform.showRewarded();
+        Audio.resume();
+        if (res !== 'ok') { toast(this, t(res === 'cancelled' ? 'over.adIncomplete' : 'ad.unavailable'), 600); return; }
       } else {
         Save.data.fireflies -= REVIVE_COST;
         Save.write();
@@ -83,9 +79,10 @@ export class GameOverScene extends BaseScene {
 
     // Chia sẻ thành tích
     iconButton(this, W - 40, 40, 'ic_share', async () => {
-      const img = await snapshot(this);
-      const ok = await Platform.share(t('over.shareText', { d: fmt(st.distance) }), img);
-      if (!ok && !Platform.isFB) toast(this, t('over.shareFbOnly'), 600);
+      const img = makeShareImage(this, t('share.best', { d: fmt(Math.max(st.distance, Save.data.bestDistance)) }));
+      const res = await Platform.share(t('over.shareText', { d: fmt(st.distance) }), img);
+      if (res.ok || res.code === 'USER_INPUT') return;
+      toast(this, res.code === 'NOT_FB' ? t('over.shareFbOnly') : t('over.shareFail', { code: res.code ?? '' }), 600);
     });
     text(this, W - 40, 72, t('over.share'), { size: 11, color: CSS.dim });
 

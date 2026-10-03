@@ -2,7 +2,7 @@ import { CSS, fmt, W } from '../config';
 import { Platform } from '../systems/platform';
 import { Save } from '../systems/save';
 import { BaseScene, Button, iconButton, panel, starryBackground, text, toast } from '../ui/ui';
-import { snapshot } from './GameOverScene';
+import { makeShareImage } from '../systems/shareImage';
 import { t } from '../i18n';
 
 /** Thành tích: thống kê cá nhân + bảng xếp hạng bạn bè (Facebook). */
@@ -38,7 +38,7 @@ export class AchievementsScene extends BaseScene {
 
     Platform.getLeaderboard().then((entries) => {
       if (!this.scene.isActive()) return;
-      if (!entries) return;
+      if (!entries) { if (Platform.isFB) loading.setText(t('ach.lbUnavailable')); return; }
       if (!entries.length) { loading.setText(t('ach.empty')); return; }
       loading.destroy();
       entries.slice(0, 7).forEach((e, i) => {
@@ -52,9 +52,10 @@ export class AchievementsScene extends BaseScene {
 
     if (Platform.isFB) {
       new Button(this, W / 2, 750, { w: 300, h: 54, label: t('ach.invite'), size: 24 }, async () => {
-        const img = await snapshot(this);
-        const ok = await Platform.inviteFriends(t('ach.inviteText', { d: fmt(s.bestDistance) }), img);
-        if (!ok) toast(this, t('ach.inviteFail'), 680);
+        const img = makeShareImage(this, t('share.best', { d: fmt(s.bestDistance) }));
+        const res = await Platform.inviteFriends(t('ach.inviteText', { d: fmt(s.bestDistance) }), img);
+        if (res.ok) toast(this, t('ach.inviteSent'), 680, CSS.firefly);
+        else if (res.code !== 'USER_INPUT') toast(this, t('ach.inviteFail', { code: res.code ?? '' }), 680);
       });
     }
   }

@@ -15,6 +15,11 @@ export interface SaveData {
   biomeShards: Record<string, number>;
   settings: { sound: boolean; music: boolean; lang: 'en' | 'vi' };
   stats: { runs: number; totalDistance: number; villagersSaved: number; shards: number };
+  /** Vật phẩm mua trước: key -> số lượng */
+  items: Record<string, number>;
+  /** Giới hạn xem quảng cáo nhận đom đóm theo ngày */
+  adDay: string;
+  adCount: number;
   updatedAt: number;
 }
 
@@ -29,6 +34,9 @@ function defaults(): SaveData {
     biomeShards: {},
     settings: { sound: true, music: true, lang: 'en' },
     stats: { runs: 0, totalDistance: 0, villagersSaved: 0, shards: 0 },
+    items: {},
+    adDay: '',
+    adCount: 0,
     updatedAt: 0,
   };
 }

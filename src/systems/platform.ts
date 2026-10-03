@@ -15,6 +15,7 @@ let fbReady = false;
 let started = false;
 let maxProgress = 0;
 let preloadedRewarded: any = null;
+let loadingRewarded: Promise<void> | null = null;
 let preloadedInterstitial: any = null;
 
 function hasSdk() {
@@ -128,43 +129,72 @@ export const Platform = {
     }
   },
 
-  /** Chia sẻ thành tích. image là data URL base64 (PNG/JPEG). */
-  async share(text: string, image: string): Promise<boolean> {
+  /** Chia sẻ thành tích. image là data URL base64 (nên dùng makeShareImage để ảnh nhỏ gọn). */
+  async share(text: string, image: string): Promise<SocialResult> {
     if (fbReady) {
       try {
         await FBInstant.shareAsync({ intent: 'SHARE', image, text, data: { from: 'share' } });
-        return true;
-      } catch {
-        return false;
+        return { ok: true };
+      } catch (e) {
+        return fail(e);
       }
     }
     if (navigator.share) {
-      try { await navigator.share({ title: 'Ngọn Lửa Cuối Cùng', text, url: location.href }); return true; } catch { return false; }
+      try { await navigator.share({ title: document.title, text, url: location.href }); return { ok: true }; } catch (e) { return fail(e); }
     }
-    return false;
+    return { ok: false, code: 'NOT_FB' };
   },
 
-  async inviteFriends(text: string, image: string) {
-    if (!fbReady) return false;
-    try {
-      if (FBInstant.inviteAsync) {
-        await FBInstant.inviteAsync({ image, text, data: { from: 'invite' } });
-      } else {
-        await FBInstant.context.chooseAsync();
-        await FBInstant.updateAsync({ action: 'CUSTOM', cta: 'Chơi ngay', image, text, template: 'invite', strategy: 'IMMEDIATE' });
+  /**
+   * Mời bạn bè. Thứ tự thử:
+   * 1. inviteAsync (SDK mới, hộp thoại mời của Facebook)
+   * 2. context.chooseAsync + updateAsync (template "invite" khai báo trong fbapp-config.json)
+   */
+  async inviteFriends(text: string, image: string): Promise<SocialResult> {
+    if (!fbReady) return { ok: false, code: 'NOT_FB' };
+    const content = { default: text };
+    let supported: string[] = [];
+    try { supported = FBInstant.getSupportedAPIs?.() ?? []; } catch { /* ignore */ }
+    const canInvite = typeof FBInstant.inviteAsync === 'function' && (!supported.length || supported.includes('inviteAsync'));
+
+    if (canInvite) {
+      try {
+        await FBInstant.inviteAsync({ image, text: content, data: { from: 'invite' } });
+        return { ok: true };
+      } catch (e) {
+        const r = fail(e);
+        if (r.code === 'USER_INPUT') return r; // người chơi đóng hộp thoại
+        console.warn('[FB] inviteAsync lỗi, thử chooseAsync', e);
       }
-      return true;
-    } catch {
-      return false;
+    }
+    try {
+      await FBInstant.context.chooseAsync();
+    } catch (e) {
+      return fail(e);
+    }
+    try {
+      await FBInstant.updateAsync({
+        action: 'CUSTOM',
+        template: 'invite',
+        cta: { default: 'Play' },
+        image,
+        text: content,
+        data: { from: 'invite' },
+        strategy: 'IMMEDIATE',
+        notification: 'NO_PUSH',
+      });
+      return { ok: true };
+    } catch (e) {
+      return fail(e);
     }
   },
+
+  // ------------------------------------------------------------------ Quảng cáo
 
   preloadAds() {
     if (!fbReady) return;
-    if (FB.rewardedPlacementId && !preloadedRewarded) {
-      FBInstant.getRewardedVideoAsync(FB.rewardedPlacementId)
-        .then((ad: any) => ad.loadAsync().then(() => { preloadedRewarded = ad; }))
-        .catch(() => {});
+    if (FB.rewardedPlacementId && !preloadedRewarded && !loadingRewarded) {
+      loadingRewarded = loadRewarded().then((ad) => { preloadedRewarded = ad; }, () => {}).finally(() => { loadingRewarded = null; });
     }
     if (FB.interstitialPlacementId && !preloadedInterstitial) {
       FBInstant.getInterstitialAdAsync(FB.interstitialPlacementId)
@@ -173,20 +203,43 @@ export const Platform = {
     }
   },
 
-  get rewardedReady() {
-    return !!preloadedRewarded;
+  /** Có thể hiện quảng cáo có thưởng không (đã cấu hình placement, hoặc chế độ giả lập khi dev). */
+  get rewardedAvailable() {
+    return (fbReady && !!FB.rewardedPlacementId) || mockAds();
   },
 
-  /** Trả về true nếu người chơi xem hết quảng cáo có thưởng. */
-  async showRewarded(): Promise<boolean> {
-    if (!preloadedRewarded) return false;
-    const ad = preloadedRewarded;
+  get rewardedReady() {
+    return !!preloadedRewarded || mockAds();
+  },
+
+  /**
+   * Hiện quảng cáo có thưởng. Nếu chưa tải sẵn thì tải ngay (tối đa 10 s).
+   * 'ok' = xem hết → trao thưởng; 'cancelled' = đóng sớm; 'unavailable' = không có quảng cáo.
+   */
+  async showRewarded(): Promise<AdResult> {
+    if (mockAds()) {
+      console.info('[Ads] Giả lập quảng cáo có thưởng (DEV)');
+      await new Promise((r) => setTimeout(r, 900));
+      return 'ok';
+    }
+    if (!fbReady || !FB.rewardedPlacementId) return 'unavailable';
+    let ad = preloadedRewarded;
     preloadedRewarded = null;
+    if (!ad) {
+      try {
+        ad = await withTimeout(loadingRewarded ? loadingRewarded.then(() => { const a = preloadedRewarded; preloadedRewarded = null; if (!a) throw new Error('no ad'); return a; }) : loadRewarded(), 10000);
+      } catch (e) {
+        console.warn('[Ads] không tải được quảng cáo', e);
+        this.preloadAds();
+        return 'unavailable';
+      }
+    }
     try {
       await ad.showAsync();
-      return true;
-    } catch {
-      return false;
+      return 'ok';
+    } catch (e: any) {
+      console.warn('[Ads] showAsync lỗi', e);
+      return e?.code === 'USER_INPUT' ? 'cancelled' : 'unavailable';
     } finally {
       this.preloadAds();
     }
@@ -200,3 +253,26 @@ export const Platform = {
     this.preloadAds();
   },
 };
+
+export type AdResult = 'ok' | 'cancelled' | 'unavailable';
+
+export interface SocialResult {
+  ok: boolean;
+  /** Mã lỗi FBInstant (USER_INPUT = người chơi tự huỷ) */
+  code?: string;
+}
+
+function fail(e: any): SocialResult {
+  const code = e?.code ?? (e?.name === 'AbortError' ? 'USER_INPUT' : e?.message ?? 'UNKNOWN');
+  if (code !== 'USER_INPUT') console.warn('[FB] lỗi', code, e);
+  return { ok: false, code };
+}
+
+function loadRewarded(): Promise<any> {
+  return FBInstant.getRewardedVideoAsync(FB.rewardedPlacementId).then((ad: any) => ad.loadAsync().then(() => ad));
+}
+
+/** Khi dev (npm run dev) ngoài Facebook: giả lập quảng cáo để test luồng nhận thưởng. */
+function mockAds() {
+  return !fbReady && import.meta.env.DEV && FB.mockAdsInDev;
+}

@@ -2,6 +2,11 @@
   "instant_games": {
     "platform_version": "RICH_GAMEPLAY",
     "orientation": "PORTRAIT",
-    "navigation_menu_version": "NAV_FLOATING"
+    "navigation_menu_version": "NAV_FLOATING",
+    "custom_update_templates": {
+      "invite": {
+        "example": "Come run with me in The Last Flame!"
+      }
+    }
   }
 }

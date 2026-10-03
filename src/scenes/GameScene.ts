@@ -213,6 +213,24 @@ export class GameScene extends BaseScene {
     Audio.setRate(1);
     Audio.startMusic(this.biomes[0].id);
     this.updateBiome(true);
+    this.useStartItems();
+  }
+
+  /** Dùng mỗi loại vật phẩm đã mua 1 cái khi bắt đầu lượt chạy. */
+  private useStartItems() {
+    const items = Save.data.items ?? {};
+    const used: string[] = [];
+    for (const key of PU_KEYS) {
+      if ((items[key] ?? 0) <= 0) continue;
+      items[key]--;
+      if (key === 'pu_shield') this.shield = true;
+      else this.effects[key] = this.now + POWERUPS[key].durationMs + 1500;
+      used.push(t(`pu.${key}`));
+    }
+    if (!used.length) return;
+    Save.write();
+    Audio.sfx('powerup');
+    this.time.delayedCall(2100, () => toast(this, t('game.startItems', { list: used.join(', ') }), 250, CSS.shard));
   }
 
   // ---------------------------------------------------------------- Hình học đường chạy
